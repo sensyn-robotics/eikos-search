@@ -2,7 +2,14 @@
 __pycache__/
 *.egg-info/
 .pytest_cache/
-doc/*.aux
-doc/*.log
-doc/*.out
-doc/*.toc
+# LaTeX build artifacts (make pdf)
+*.pdf
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
