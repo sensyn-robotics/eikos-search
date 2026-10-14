@@ -1,0 +1,4 @@
+[submodule "third_party/eikos"]
+	path = third_party/eikos
+	url = https://github.com/caiovicentino/eikos
+	ignore = untracked

@@ -1,0 +1,28 @@
+# Every setting of eikos-search. The config path is the only argument the program takes.
+
+model:
+  size: 4b              # 4b | 27b
+  precision: bf16       # bf16 | fp8 | int4  (fp8/int4 builds are compressed-tensors: backend vllm only)
+  backend: transformers # transformers (in-process) | vllm (a running scripts/serve_vllm.sh)
+  device: cuda          # transformers backend only
+  max_tokens: 12000     # longest Eikos prompt accepted (4B trained to 32k, 27B to 12k)
+  vllm_url: null        # e.g. http://127.0.0.1:8001 (backend vllm only)
+
+search:
+  backend: ddgs         # ddgs (DuckDuckGo, no API key)
+  max_results: 8        # articles fetched per question
+  region: us-en         # ddgs region (lang-country); also picks the Wikipedia language edition
+  engines: bing, yahoo, duckduckgo  # engines ddgs queries; its "auto" set often returns nothing for non-English text
+  timeout_s: 10         # per-page fetch timeout
+
+extract:
+  min_chars: 40         # shorter sentences are dropped (menus, captions)
+  max_chars: 600        # longer sentences are dropped (lists and run-on boilerplate)
+
+rank:
+  prefilter_k: 64       # passages handed to Eikos after the BM25 prefilter
+  abstain_threshold: 0.5   # minimum 1 - p(none), the probability that some sentence answers; else abstain
+
+server:
+  host: 127.0.0.1
+  port: 8000
