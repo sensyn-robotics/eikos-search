@@ -9,6 +9,38 @@ Eikos never generates text: it returns calibrated probabilities over a list of o
 candidate sentence of the fetched articles an option, so the answer is always a verbatim slice of an existing page,
 or an explicit "no article states this exactly". The full specification is in [doc/specification.tex](doc/specification.tex).
 
+## Why Eikos-search?
+
+- **Compared with an LLM:** it never makes up an answer. It returns the part of a web page that already exists and
+  answers the question.
+- **Compared with Google Search:** it pulls out the sentence in the page that actually answers the question, so you
+  don't have to search through the pages yourself. It also returns the link, so you can check the page yourself.
+
+### Result
+
+Asking the question below returned the answer I actually wanted, directly.
+
+> what is the most cheap RTX5080 machine in the world?
+
+eikos-search returned this sentence, highlighted inside its paragraph, with its source:
+
+> **"The cheapest in-stock card is the Gigabyte model at $1,699.99."**
+>
+> Right now RTX 5080 models run from about $1,699.99 to $2,149.99, with most around $1,829.97. **The cheapest in-stock
+> card is the Gigabyte model at $1,699.99.** Prices move constantly - the table above is our latest refresh.
+>
+> *Best RTX 5080 to Buy (2026): Live Prices by Model*: https://bottleneckpc.com/gpu/rtx-5080
+>
+> p(sentence) = 0.67 · p(answered) = 1.00 · 64 sentences from 3 articles · 4.3 s
+
+The same question on Google Search:
+
+| | Answer | Problem |
+|---|---|---|
+| **eikos-search** | "The cheapest in-stock card is the Gigabyte model at $1,699.99." + source link | none: the price, verbatim from the page |
+| Google AI search | "GIGABYTE GAMING A16 PRO (specifically the DYHG5JPC64SP variant)." | names a product, not the price I wanted |
+| Google top result | *GeForce RTX 5080 Tier list? (but mid-price range) : r/nvidia* | a link, not an answer; even inside the page, it is unclear where the answer is |
+
 ## Setup
 
 ```bash
