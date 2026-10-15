@@ -57,3 +57,14 @@ there, and set `model.vllm_url` to `http://<that machine>:8001`.
 ```bash
 uv run pytest
 ```
+
+## License
+
+MIT, the same license as Eikos's code. See [LICENSE](LICENSE).
+
+Third-party components keep their own licenses:
+
+| Component | License |
+|---|---|
+| Eikos code (`third_party/eikos`) | MIT, see `third_party/eikos/LICENSE` and `NOTICE` |
+| Eikos model weights (downloaded from Hugging Face) | MIT for the Eikos fine-tuning; Apache-2.0 for the Qwen base models |

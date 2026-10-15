@@ -3,6 +3,8 @@ name = "eikos-search"
 version = "0.1.0"
 description = "Answers a question with the exact sentence of an existing web article, chosen by Eikos"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
     { name = "Masahiro Ogawa", email = "masahiro.ogaw@gmail.com" }
 ]
