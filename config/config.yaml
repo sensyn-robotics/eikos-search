@@ -3,7 +3,7 @@
 model:
   size: 4b              # 4b | 27b
   precision: bf16       # bf16 | fp8 | int4  (fp8/int4 builds are compressed-tensors: backend vllm only)
-  backend: transformers # transformers (in-process) | vllm (a running scripts/serve_vllm.sh)
+  backend: transformers # runtime, not a model: transformers (Hugging Face library, in-process) | vllm (vLLM server)
   device: cuda          # transformers backend only
   max_tokens: 12000     # longest Eikos prompt accepted (4B trained to 32k, 27B to 12k)
   vllm_url: null        # e.g. http://127.0.0.1:8001 (backend vllm only)

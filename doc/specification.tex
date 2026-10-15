@@ -201,7 +201,7 @@ Key & Default & Meaning \\
 \midrule
 \code{model.size}        & \code{4b}  & Eikos size: \code{4b} or \code{27b} \\
 \code{model.precision}   & \code{bf16} & \code{bf16}, \code{fp8} or \code{int4} \\
-\code{model.backend}     & \code{transformers} & \code{transformers} (in-process) or \code{vllm} (remote server) \\
+\code{model.backend}     & \code{transformers} & inference runtime, not a model: \code{transformers} (Hugging Face Transformers library, in-process) or \code{vllm} (vLLM inference server, separate process) \\
 \code{model.device}      & \code{cuda} & torch device for \code{transformers} \\
 \code{model.max\_tokens} & 12000 & longest prompt accepted \\
 \code{model.vllm\_url}   & \code{null} & URL of \code{scripts/serve\_vllm.sh} when \code{backend=vllm} \\

@@ -27,17 +27,30 @@ uv run eikos-search config/config.yaml --repl   # ask in the terminal
 
 ## Model
 
-`model.size` (`4b` | `27b`) and `model.precision` (`bf16` | `fp8` | `int4`) in `config/config.yaml` select the Eikos
-build; every run prints which one it loaded.
+The only model is **Eikos** ([caiovicentino1/Eikos-*](https://huggingface.co/caiovicentino1) on Hugging Face). It is a
+fine-tune of Qwen3.5-Base, and it scores options instead of generating text. `model.size` (`4b` | `27b`) and
+`model.precision` (`bf16` | `fp8` | `int4`) in `config/config.yaml` select which Eikos checkpoint is used. Every run
+prints which one it loaded.
 
-| size | precision | weights | backend |
-|---|---|---|---|
-| 4b | bf16 | 9.3 GB | transformers or vllm |
-| 4b | fp8 / int4 | 5.8 / 4.0 GB | vllm |
-| 27b | bf16 | 55.6 GB | transformers or vllm |
-| 27b | fp8 / int4 | 31.2 / 19.4 GB | vllm |
+`model.backend` does not select a model. It selects the **inference runtime** that runs the chosen Eikos checkpoint:
 
-For `backend: vllm`, start `third_party/eikos/scripts/serve_vllm.sh <model dir> 8001` and set `model.vllm_url`.
+| `model.backend` | What it is | Where Eikos runs |
+|---|---|---|
+| `transformers` | [Hugging Face Transformers](https://github.com/huggingface/transformers), the PyTorch library for loading and running pretrained models (installed as a dependency) | inside the `eikos-search` process, on `model.device` (this machine's GPU) |
+| `vllm` | [vLLM](https://github.com/vllm-project/vllm), an open-source LLM inference server (not a model; v0.30.0 or later is required) | in a separate vLLM server process, possibly on another, larger GPU machine, reached at `model.vllm_url` |
+
+Both runtimes load the same Eikos weights and give the same decisions. vLLM is needed for the fp8/int4 checkpoints,
+because they are stored in the compressed-tensors format that the Transformers path here does not load:
+
+| size | precision | Hugging Face repo | weights | backend |
+|---|---|---|---|---|
+| 4b | bf16 | `caiovicentino1/Eikos-4B` | 9.3 GB | transformers or vllm |
+| 4b | fp8 / int4 | `caiovicentino1/Eikos-4B-FP8` / `-INT4` | 5.8 / 4.0 GB | vllm |
+| 27b | bf16 | `caiovicentino1/Eikos-27B` | 55.6 GB | transformers or vllm |
+| 27b | fp8 / int4 | `caiovicentino1/Eikos-27B-FP8` / `-INT4` | 31.2 / 19.4 GB | vllm |
+
+For `backend: vllm`, install vLLM on the GPU machine. Start `third_party/eikos/scripts/serve_vllm.sh <model dir> 8001`
+there, and set `model.vllm_url` to `http://<that machine>:8001`.
 
 ## Tests
 
