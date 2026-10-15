@@ -20,18 +20,7 @@ Asking the question below returned the answer I actually wanted, directly.
 
 > what is the most cheap RTX5080 machine in the world?
 
-eikos-search returned this sentence, highlighted inside its paragraph, with its source:
-
-> **"The cheapest in-stock card is the Gigabyte model at $1,699.99."**
->
-> Right now RTX 5080 models run from about $1,699.99 to $2,149.99, with most around $1,829.97. **The cheapest in-stock
-> card is the Gigabyte model at $1,699.99.** Prices move constantly - the table above is our latest refresh.
->
-> *Best RTX 5080 to Buy (2026): Live Prices by Model*: https://bottleneckpc.com/gpu/rtx-5080
->
-> p(sentence) = 0.67 · p(answered) = 1.00 · 64 sentences from 3 articles · 4.3 s
-
-The same question on Google Search:
+Compared with Google Search on the same question:
 
 | | Answer | Problem |
 |---|---|---|
